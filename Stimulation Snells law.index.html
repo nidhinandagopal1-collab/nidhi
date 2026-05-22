@@ -1,0 +1,19 @@
+// Add this at the very bottom of your <script> section
+// It resets the simulation to a clean state every 60 seconds of inactivity
+let inactivityTimer = setTimeout(resetSim, 60000); 
+
+function resetSim() {
+    n1Slider.value = 1.0;
+    n2Slider.value = 1.33;
+    angleSlider.value = 45;
+    drawScene();
+    inactivityTimer = setTimeout(resetSim, 60000);
+}
+
+// Reset timer whenever someone touches a slider
+[n1Slider, n2Slider, angleSlider].forEach(slider => {
+    slider.addEventListener('input', () => {
+        clearTimeout(inactivityTimer);
+        inactivityTimer = setTimeout(resetSim, 60000);
+    });
+});
